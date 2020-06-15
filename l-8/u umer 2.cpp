@@ -33,7 +33,7 @@ int main()
 	for(int i =0;i<n;i++){
 		 int z = a[i]>>c;
 //		 cout<<a[i]<<" ";
-		 if((z&1) == 0){
+		 if((z&1) == 1){
 		 	x1 = x1^a[i];
 		 }
 		 else{
@@ -41,13 +41,6 @@ int main()
 		 }
 	}
 	cout<<x1<<" "<<x2;
-
-
-
-
-
-
-
 
 	return 0;
 }
