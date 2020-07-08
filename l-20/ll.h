@@ -218,7 +218,6 @@ node* MergeSort(node* head){
 
 	return newnode;
 
-
 }
 
 void F_cycle_detection(node* &head){
