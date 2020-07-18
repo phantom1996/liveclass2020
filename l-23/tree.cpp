@@ -128,17 +128,99 @@ int Daimeter(node* root){
 }
 
 
+int ind = 5;
+
+
+
+int Search(int in[],int s,int e,int data){
+	for(int i=s;i<=e;i++){
+		if(in[i]==data){
+			return i;
+		}
+	}
+}
+
+node* pre_in(int post[],int in[],int s,int e){
+	//static int ind = 0 ;
+
+	if(s>e){
+		return NULL;
+	}
+
+	node* root = new node(post[ind]);
+	ind--;
+
+	if(s==e){
+		return root;
+	}
+
+	//int ele = pre[ind];
+
+	//ind++;
+
+	int ind1 = Search(in,s,e,root->data);
+
+	// root->left = pre_in(pre,in,s,ind1-1); pre first
+	root->right = pre_in(post,in,ind1+1,e);
+	root->left = pre_in(post,in,s,ind1-1);
+	return root;
+
+}
+#include <queue>
+void Level_order_output(node* root){
+	queue<node*> q;
+	q.push(root);
+	q.push(NULL);
+
+
+	while(!q.empty()){
+
+		node* temp = q.front();
+		q.pop();
+
+		cout<<temp->data<<" ";
+
+		if(temp->left){
+			q.push(temp->left);
+		}
+		if(temp->right){
+			q.push(temp->right);
+		}
+
+		if(q.front()==NULL){
+			cout<<endl;
+
+			q.pop();
+
+			if(!q.empty()){
+				q.push(NULL);
+			}
+
+		}
+
+	}
+}
+
 
 int main()
 {
-	node* root = CreatTree();
+	int pre[] = {8 ,4, 1, 5, 3, 7};
+
+	int in[] = {1,4, 5 ,8, 3, 7};
+
+	int post[]  = {1,5,4,7,3,8};
+
+
+	node* root = pre_in(post,in,0,5);
+
+	Level_order_output(root);
 	//pr_order(root);
-	//in_order(root);
+	in_order(root);
 	//post_order(root);
 	//cout<<endl;
 	//cout<<cnt_Nodes(root);
 	//cout<<heigth(root);
-	cout<<Daimeter(root);
+	//cout<<Daimeter(root);
 	return 0;
 }
 
