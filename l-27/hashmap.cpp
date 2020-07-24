@@ -15,6 +15,7 @@ int main()
 	menu.insert("Noodles",75);
 	menu.insert("Coke",50);
 	menu.insert("Momos",30);
+	menu.insert("FrenchFries",50);
 
 	menu.print();
 
