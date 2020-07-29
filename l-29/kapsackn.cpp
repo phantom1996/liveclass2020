@@ -39,15 +39,53 @@ int topdow(int price[],int weigth[],int n,int capacity,int dp[][100]){
 
 
 	if(capacity>=weigth[n-1]){
-		inc = price[n-1] + maxprofit(price,weigth,n-1,capacity-weigth[n-1]); 
+		inc = price[n-1] + topdow(price,weigth,n-1,capacity-weigth[n-1],dp); 
 	}
-	exc =  0 +  maxprofit(price,weigth,n-1,capacity);
+	exc =  0 +  topdow(price,weigth,n-1,capacity,dp);
 
 
 	dp[n][capacity] = max(inc,exc);
 	return max(inc,exc);
 
 }
+
+
+
+int ottomup(int price[],int weight[],int n,int capacity){
+
+	int dp[100][100] ={0};
+
+	for(int items = 0;items<=n ;items++){
+		for(int wei =0 ;wei<=capacity;wei++){
+
+			if(items ==0 || wei == 0){
+				dp[items][wei] = 0;
+			}
+			else{
+
+				int inc = 0,exc=0;
+				if(wei>= weight[items-1]){
+					inc = price[items-1] + dp[items-1][wei-weight[items-1]];
+				}
+				exc = 0 + dp[items-1][wei];
+
+				dp[items][wei] = max(inc,exc);
+			}
+		}
+	}
+
+	for(int i=0;i<=n;i++){
+		for(int j=0;j<=capacity;j++){
+			cout<<dp[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	return dp[n][capacity];
+
+}
+
+
+
 
 
 
@@ -68,6 +106,7 @@ for(int i=0;i<100;i++){
 
 	int n = 4;
 	cout<<maxprofit(price,weigth,n,capacity)<<endl;
-	cout<<topdow(price,weigth,n,capacity,dp);
+	cout<<topdow(price,weigth,n,capacity,dp)<<endl;
+	cout<<ottomup(price,weigth,n,capacity);
 	return 0;
 }
