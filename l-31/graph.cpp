@@ -90,6 +90,36 @@ public:
 
     }
 
+    void DFS_helper(T src , map<T,bool> &visited){
+
+        cout<<src<<" ";
+
+        visited[src]=true;
+
+        for(auto i : m[src]){
+            if(!visited[i]){
+                DFS_helper(i,visited);
+
+            }
+        }
+    }
+
+
+    int DFS(T src){
+        map<T,bool> visited;
+        DFS_helper(src,visited);
+
+        int comp = 1;
+
+        for(auto i : m){
+            if(!visited[i.first]){
+                comp++;
+                DFS_helper(i.first,visited);
+            }
+        }
+        return comp;
+    }
+
 };
 
 
@@ -105,11 +135,15 @@ int main(){
     g.AddEdge(2,4);
     g.AddEdge(3,4);
     g.AddEdge(3,5);
+    g.AddEdge(15,16);
+    g.AddEdge(16,17);
+    g.AddEdge(99,100);
   //  g.AddEdge(15,16);
    // g.AddEdge(16,17);
     //g.print();
    //g.BFS(0);
 
-    g.SSSP(0,5);
+    //g.SSSP(0,5);
+    cout<<endl<<g.DFS(0);
     return 0;
 }
